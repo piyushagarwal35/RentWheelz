@@ -33,7 +33,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDto getReservation(Long id) {
+    public ReservationDto getReservation(String id) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ReservationNotFoundException("Reservation not found with id: " + id));
         return convertToDto(reservation);
@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     // this method will cancle or delete booking by id
     @Override
-    public void deleteReservation(Long id) {
+    public void deleteReservation(String id) {
         if (!reservationRepository.existsById(id)) {
             throw new ReservationNotFoundException("Reservation not found with id: " + id);
         }
@@ -56,28 +56,34 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     // this method will return all the avaialble cars by their status
-    @Override
-    public List<ReservationDto> getAvailableCars() {
-        // Assuming CarRepository is available and has a method to find cars by status
+//    @Override
+//    public List<ReservationDto> getAvailableCars() {
+//        // Assuming CarRepository is available and has a method to find cars by status
         // This is a placeholder logic. Implement according to your application's requirements
-        return carService.getAvailableCars().stream()
-                .map(this::convertToReservationDto) // Assuming you have a method to convert Car to ReservationDto
+
+
+    // this method will return all the reservation by user id
+    @Override
+    public List<ReservationDto> getReservationsByUserId(String userEmail) {
+        return reservationRepository.findByUserId(userEmail).stream()
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    // this method will return all the reservation by user id
-    public List<ReservationDto> getReservationsByUserId(Long userId) {
-        return null;
-    }
-
     // this method will return all the reservation by vehicle id
-    public List<ReservationDto> getReservationsByVehicleId(Long vehicleId) {
-        return null;
+    @Override
+    public List<ReservationDto> getReservationsByVehicleId(String carId) {
+        return reservationRepository.findByCarId(carId).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     // this method will return all the reservation by user id and vehicle id
-    public List<ReservationDto> getReservationsByUserIdAndVehicleId(Long userId, Long vehicleId) {
-        return null;
+    @Override
+    public List<ReservationDto> getReservationsByUserIdAndVehicleId(String userEmail, String carId) {
+        return reservationRepository.findReservationsByUserIdAndCarId(userEmail, carId).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public ReservationDto convertToDto(Reservation reservation) {

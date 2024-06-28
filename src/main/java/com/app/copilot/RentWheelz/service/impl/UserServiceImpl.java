@@ -48,11 +48,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String email) {
+    public String deleteUser(String email) {
         if (!userRepository.existsById(email)) {
             throw new UserNotFoundException("User not found with email: " + email);
         }
-        userRepository.deleteById(email);
+         userRepository.deleteById(email);
+        return "User deleted successfully";
     }
 
     @Override
@@ -78,4 +79,11 @@ public class UserServiceImpl implements UserService {
         user.setProofId(userDto.getProofId());
         return user;
     }
+
+    @Override
+    public boolean authenticateUser(String email, String password) {
+        UserDto user = getUser(email);
+        return user != null && user.getUserPassword().equals(password);
+    }
+
 }

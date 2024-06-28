@@ -14,9 +14,11 @@ public interface UserService {
     // this method will update the user by id and return the updated user dto
     public UserDto updateUser(String email, UserDto userDto);
     // this method will delete the user by id
-    public void deleteUser(String email);
+    public String deleteUser(String email);
     // this method will return all the users
     public List<UserDto> getAllUsers();
+
+    public boolean authenticateUser(String email, String password);
 
 
 }

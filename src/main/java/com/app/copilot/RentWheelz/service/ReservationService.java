@@ -10,22 +10,22 @@ public interface ReservationService {
  public ReservationDto createReservation(ReservationDto reservationDto);
 
 // this method will return the reservation by id
-    public ReservationDto getReservation(Long id);
+    public ReservationDto getReservation(String id);
     // this method will update the reservation by id and return the updated reservation dto
    // public ReservationDto updateReservation(Long id, ReservationDto reservationDto);
     // this method will cancle or delete booking by id
-    public void deleteReservation(Long id);
+    public void deleteReservation(String id);
     // this method will return all the reservations
     public List<ReservationDto> getAllReservations();
     // this method will return all the reservation by user id
 
     // this method will return all the avaialble cars
-    public List<ReservationDto> getAvailableCars();
-    public List<ReservationDto> getReservationsByUserId(Long userId);
+   // public List<ReservationDto> getAvailableCars();
+    public List<ReservationDto> getReservationsByUserId(String userEmail);
     // this method will return all the reservation by vehicle id
-    public List<ReservationDto> getReservationsByVehicleId(Long vehicleId);
+    public List<ReservationDto> getReservationsByVehicleId(String carId);
     // this method will return all the reservation by user id and vehicle id
-    public List<ReservationDto> getReservationsByUserIdAndVehicleId(Long userId, Long vehicleId);
+    public List<ReservationDto> getReservationsByUserIdAndVehicleId(String userEmail, String carId);
 
 
 
