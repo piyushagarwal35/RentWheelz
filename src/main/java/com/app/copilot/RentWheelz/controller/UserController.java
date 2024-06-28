@@ -6,6 +6,7 @@ package com.app.copilot.RentWheelz.controller;
 import com.app.copilot.RentWheelz.dto.LoginDto;
 import com.app.copilot.RentWheelz.dto.UserDto;
 import com.app.copilot.RentWheelz.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
